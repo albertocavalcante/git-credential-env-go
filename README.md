@@ -80,7 +80,7 @@ export GIT_CREDENTIAL_PATH_PREFIX="my-org/"
 
 ### Bitbucket Cloud
 
-App password or API token:
+App password:
 
 ```bash
 export GIT_CREDENTIAL_HOST="bitbucket.org"
@@ -88,7 +88,15 @@ export GIT_CREDENTIAL_USERNAME="your-bitbucket-username"
 export GIT_CREDENTIAL_PATH_PREFIX="my-workspace/"
 ```
 
-Repository or workspace access token:
+API token:
+
+```bash
+export GIT_CREDENTIAL_HOST="bitbucket.org"
+export GIT_CREDENTIAL_USERNAME="x-bitbucket-api-token-auth"
+export GIT_CREDENTIAL_PATH_PREFIX="my-workspace/"
+```
+
+Workspace, project, or repository access token:
 
 ```bash
 export GIT_CREDENTIAL_HOST="bitbucket.org"
@@ -115,6 +123,26 @@ other env var name:
 export GIT_CREDENTIAL_TOKEN_ENV="MY_APP_TOKEN"
 export MY_APP_TOKEN="..."
 ```
+
+## References
+
+- Git credentials storage and helper protocol:
+  [gitcredentials](https://git-scm.com/docs/gitcredentials),
+  [git-credential](https://git-scm.com/docs/git-credential)
+- GitHub tokens:
+  [Managing your personal access tokens](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+- GitLab tokens:
+  [Personal access tokens](https://docs.gitlab.com/user/profile/personal_access_tokens/)
+- Gitea auth usage:
+  [Repository mirror auth examples](https://docs.gitea.com/usage/repository/repo-mirror)
+- Bitbucket Cloud:
+  [Using API tokens](https://support.atlassian.com/bitbucket-cloud/docs/using-api-tokens/),
+  [Workspace access tokens](https://support.atlassian.com/bitbucket-cloud/docs/workspace-access-tokens/),
+  [Project access tokens](https://support.atlassian.com/bitbucket-cloud/docs/project-access-tokens/),
+  [Repository access tokens](https://support.atlassian.com/bitbucket-cloud/docs/repository-access-tokens/)
+- Bitbucket Server/Data Center:
+  [Personal access tokens](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html),
+  [HTTP access tokens](https://confluence.atlassian.com/bitbucketserver/http-access-tokens-939515499.html)
 
 ## CI Example
 
