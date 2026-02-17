@@ -1,5 +1,5 @@
 # Binaries
-/git-credential-ghenv
+/git-credential-env-go
 *.exe
 *.dll
 *.so

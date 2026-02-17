@@ -12,7 +12,7 @@ func TestRunGetMatchReturnsCredentials(t *testing.T) {
 	input := strings.NewReader("protocol=https\nhost=github.com\npath=albertocavalcante/groovy-parser-go\n\n")
 	var output bytes.Buffer
 
-	err := run([]string{"git-credential-ghenv", actionGet}, input, &output)
+	err := run([]string{"git-credential-env-go", actionGet}, input, &output)
 	if err != nil {
 		t.Fatalf("run() returned error: %v", err)
 	}
@@ -29,7 +29,7 @@ func TestRunGetWithHostPortMatch(t *testing.T) {
 	input := strings.NewReader("protocol=https\nhost=github.com:443\n\n")
 	var output bytes.Buffer
 
-	err := run([]string{"git-credential-ghenv", actionGet}, input, &output)
+	err := run([]string{"git-credential-env-go", actionGet}, input, &output)
 	if err != nil {
 		t.Fatalf("run() returned error: %v", err)
 	}
@@ -44,7 +44,7 @@ func TestRunGetNoTokenReturnsNoCredentials(t *testing.T) {
 	input := strings.NewReader("protocol=https\nhost=github.com\n\n")
 	var output bytes.Buffer
 
-	err := run([]string{"git-credential-ghenv", actionGet}, input, &output)
+	err := run([]string{"git-credential-env-go", actionGet}, input, &output)
 	if err != nil {
 		t.Fatalf("run() returned error: %v", err)
 	}
@@ -60,7 +60,7 @@ func TestRunGetHostMismatchReturnsNoCredentials(t *testing.T) {
 	input := strings.NewReader("protocol=https\nhost=gitlab.com\n\n")
 	var output bytes.Buffer
 
-	err := run([]string{"git-credential-ghenv", actionGet}, input, &output)
+	err := run([]string{"git-credential-env-go", actionGet}, input, &output)
 	if err != nil {
 		t.Fatalf("run() returned error: %v", err)
 	}
@@ -77,7 +77,7 @@ func TestRunGetPathPrefixFilter(t *testing.T) {
 	input := strings.NewReader("protocol=https\nhost=github.com\npath=another/repo\n\n")
 	var output bytes.Buffer
 
-	err := run([]string{"git-credential-ghenv", actionGet}, input, &output)
+	err := run([]string{"git-credential-env-go", actionGet}, input, &output)
 	if err != nil {
 		t.Fatalf("run() returned error: %v", err)
 	}
@@ -94,7 +94,7 @@ func TestRunGetCustomTokenEnv(t *testing.T) {
 	input := strings.NewReader("protocol=https\nhost=github.com\n\n")
 	var output bytes.Buffer
 
-	err := run([]string{"git-credential-ghenv", actionGet}, input, &output)
+	err := run([]string{"git-credential-env-go", actionGet}, input, &output)
 	if err != nil {
 		t.Fatalf("run() returned error: %v", err)
 	}
@@ -108,26 +108,26 @@ func TestRunGetCustomTokenEnv(t *testing.T) {
 func TestRunStoreAndEraseNoop(t *testing.T) {
 	input := strings.NewReader("protocol=https\nhost=github.com\n\n")
 
-	err := run([]string{"git-credential-ghenv", actionStore}, input, bytes.NewBuffer(nil))
+	err := run([]string{"git-credential-env-go", actionStore}, input, bytes.NewBuffer(nil))
 	if err != nil {
 		t.Fatalf("store returned error: %v", err)
 	}
 
-	err = run([]string{"git-credential-ghenv", actionErase}, strings.NewReader("host=github.com\n\n"), bytes.NewBuffer(nil))
+	err = run([]string{"git-credential-env-go", actionErase}, strings.NewReader("host=github.com\n\n"), bytes.NewBuffer(nil))
 	if err != nil {
 		t.Fatalf("erase returned error: %v", err)
 	}
 }
 
 func TestRunUnsupportedAction(t *testing.T) {
-	err := run([]string{"git-credential-ghenv", "invalid"}, strings.NewReader(""), bytes.NewBuffer(nil))
+	err := run([]string{"git-credential-env-go", "invalid"}, strings.NewReader(""), bytes.NewBuffer(nil))
 	if err == nil {
 		t.Fatal("expected error for invalid action")
 	}
 }
 
 func TestRunInvalidArgumentCount(t *testing.T) {
-	err := run([]string{"git-credential-ghenv"}, strings.NewReader(""), bytes.NewBuffer(nil))
+	err := run([]string{"git-credential-env-go"}, strings.NewReader(""), bytes.NewBuffer(nil))
 	if err == nil {
 		t.Fatal("expected usage error")
 	}

@@ -1,6 +1,6 @@
-# git-credential-ghenv
+# git-credential-env-go
 
-git-credential-ghenv
+git-credential-env-go
 
 ## Commands
 

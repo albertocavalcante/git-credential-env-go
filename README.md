@@ -1,8 +1,8 @@
-# git-credential-ghenv
+# git-credential-env-go
 
 Minimal Git credential helper binary for HTTPS Git operations.
 
-`git-credential-ghenv` implements the Git credential helper protocol and returns
+`git-credential-env-go` implements the Git credential helper protocol and returns
 credentials from environment variables when host/protocol/path rules match.
 
 It is intentionally simple:
@@ -15,13 +15,13 @@ It is intentionally simple:
 ## Install
 
 ```bash
-go install github.com/albertocavalcante/git-credential-ghenv@latest
+go install github.com/albertocavalcante/git-credential-env-go@latest
 ```
 
 ## Configure
 
 ```bash
-git config --global credential.helper ghenv
+git config --global credential.helper env-go
 ```
 
 Set env vars:
@@ -42,7 +42,7 @@ The helper default username is `x-access-token`, but this is not universal.
 
 ```bash
 export GIT_CREDENTIAL_TOKEN="..."
-git config --global credential.helper ghenv
+git config --global credential.helper env-go
 git config --global credential.useHttpPath true
 ```
 
@@ -263,7 +263,7 @@ Typical direct-VCS setup:
 ```bash
 go env -w GOPRIVATE=your.git.host/your-org/*
 go env -w GONOSUMDB=your.git.host/your-org/*
-git config --global credential.helper ghenv
+git config --global credential.helper env-go
 ```
 
 Notes:

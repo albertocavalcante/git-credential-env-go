@@ -1,4 +1,4 @@
-# git-credential-ghenv
+# git-credential-env-go
 # Run `just` to see all available commands
 
 set dotenv-load := false
