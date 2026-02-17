@@ -1,9 +1,10 @@
 # git-credential-ghenv
 
-Minimal Git credential helper binary for private GitHub module fetches.
+Minimal Git credential helper binary for HTTPS Git operations.
 
-It implements the Git credential helper protocol and serves a token from
-environment variables when the request matches configured host/protocol/path.
+It implements the Git credential helper protocol and returns credentials from
+environment variables when the incoming request matches host/protocol/path
+rules.
 
 ## Install
 
@@ -24,20 +25,40 @@ export GIT_CREDENTIAL_TOKEN="..."
 export GIT_CREDENTIAL_HOST="github.com"                # default: github.com
 export GIT_CREDENTIAL_PROTOCOL="https"                 # default: https
 export GIT_CREDENTIAL_USERNAME="x-access-token"        # default: x-access-token
-export GIT_CREDENTIAL_PATH_PREFIX="albertocavalcante/" # optional
+export GIT_CREDENTIAL_PATH_PREFIX="my-org/"            # optional
 ```
 
-Token env var can be redirected with:
+## `GIT_CREDENTIAL_PATH_PREFIX` Explained
+
+`GIT_CREDENTIAL_PATH_PREFIX` is matched against Git's credential request
+`path` field.
+
+For GitHub, `path` is typically:
+
+- `owner/repo`
+- `owner/repo.git`
+
+Examples:
+
+- `GIT_CREDENTIAL_PATH_PREFIX="my-org/"`: match any repo under `my-org`
+- `GIT_CREDENTIAL_PATH_PREFIX="my-org/private-repo"`: match one repo
+- unset: no path restriction (host/protocol checks only)
+
+## Custom Token Env Var
+
+By default the helper reads `GIT_CREDENTIAL_TOKEN`. You can point it to any
+other env var name:
 
 ```bash
-export GIT_CREDENTIAL_TOKEN_ENV="EUKIA_TOKEN"
-export EUKIA_TOKEN="..."
+export GIT_CREDENTIAL_TOKEN_ENV="MY_APP_TOKEN"
+export MY_APP_TOKEN="..."
 ```
 
-## GitHub Actions Example
+## CI Example
 
 ```bash
-go env -w GOPRIVATE=github.com/albertocavalcante/*
-go env -w GONOSUMDB=github.com/albertocavalcante/*
+go env -w GOPRIVATE=github.com/my-org/*
+go env -w GONOSUMDB=github.com/my-org/*
+export GIT_CREDENTIAL_TOKEN="$MY_APP_TOKEN"
 git config --global credential.helper ghenv
 ```
