@@ -24,9 +24,14 @@ Set credentials and matching rules:
 export GIT_CREDENTIAL_TOKEN="..."
 export GIT_CREDENTIAL_HOST="github.com"                # default: github.com
 export GIT_CREDENTIAL_PROTOCOL="https"                 # default: https
-export GIT_CREDENTIAL_USERNAME="x-access-token"        # default: x-access-token
+export GIT_CREDENTIAL_USERNAME="your-provider-username"
 export GIT_CREDENTIAL_PATH_PREFIX="my-org/"            # optional
 ```
+
+`GIT_CREDENTIAL_HOST` should be the hostname only (no scheme, no port).
+`GIT_CREDENTIAL_USERNAME` depends on the Git provider and token type.
+The helper default is `x-access-token`, but many providers require a different
+username.
 
 ## `GIT_CREDENTIAL_PATH_PREFIX` Explained
 
@@ -43,6 +48,63 @@ Examples:
 - `GIT_CREDENTIAL_PATH_PREFIX="my-org/"`: match any repo under `my-org`
 - `GIT_CREDENTIAL_PATH_PREFIX="my-org/private-repo"`: match one repo
 - unset: no path restriction (host/protocol checks only)
+
+## Provider Examples
+
+### GitHub.com
+
+```bash
+export GIT_CREDENTIAL_HOST="github.com"
+export GIT_CREDENTIAL_USERNAME="x-access-token"
+export GIT_CREDENTIAL_PATH_PREFIX="my-org/"
+```
+
+### GitLab.com or Self-Managed GitLab
+
+```bash
+export GIT_CREDENTIAL_HOST="gitlab.com"      # or gitlab.example.com
+export GIT_CREDENTIAL_USERNAME="oauth2"
+export GIT_CREDENTIAL_PATH_PREFIX="my-group/"
+```
+
+For GitLab PATs, username is generally not evaluated. Using `oauth2` keeps the
+same config working for OAuth tokens as well.
+
+### Gitea
+
+```bash
+export GIT_CREDENTIAL_HOST="gitea.example.com"
+export GIT_CREDENTIAL_USERNAME="your-username"
+export GIT_CREDENTIAL_PATH_PREFIX="my-org/"
+```
+
+### Bitbucket Cloud
+
+App password or API token:
+
+```bash
+export GIT_CREDENTIAL_HOST="bitbucket.org"
+export GIT_CREDENTIAL_USERNAME="your-bitbucket-username"
+export GIT_CREDENTIAL_PATH_PREFIX="my-workspace/"
+```
+
+Repository or workspace access token:
+
+```bash
+export GIT_CREDENTIAL_HOST="bitbucket.org"
+export GIT_CREDENTIAL_USERNAME="x-token-auth"
+export GIT_CREDENTIAL_PATH_PREFIX="my-workspace/"
+```
+
+### Bitbucket Server / Data Center
+
+```bash
+export GIT_CREDENTIAL_HOST="bitbucket.example.com"
+export GIT_CREDENTIAL_USERNAME="your-username"
+export GIT_CREDENTIAL_PATH_PREFIX="scm/PROJ/"
+```
+
+Bitbucket Server/Data Center clone paths are commonly `scm/<project>/<repo>.git`.
 
 ## Custom Token Env Var
 
