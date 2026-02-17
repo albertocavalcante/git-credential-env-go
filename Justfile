@@ -46,7 +46,7 @@ test-ci:
 
 # Run linter
 lint:
-    golangci-lint run
+    go tool -modfile=tools/lint/go.mod golangci-lint run
 
 # Format code
 fmt:
